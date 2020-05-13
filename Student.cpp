@@ -40,10 +40,10 @@ void Student::setAdv(int i)
 	adv = i;
 }
 
-ostream& operator<<(ostream& os, const Student& s)
+ostream& operator<<(ostream& outs, const Student& s)
 {
-    os <<s.name<<'/'<< s.level<<'/'<<s.major<<'/'<<s.adv<<'/'<<s.gpa<<'/'<<s.id;
-    return os;
+    outs <<s.name<<'/'<< s.level<<'/'<<s.major<<'/'<<s.adv<<'/'<<s.gpa<<'/'<<s.id;
+    return outs;
 }
 
 bool operator> (const Student &s1, const Student &s2)
