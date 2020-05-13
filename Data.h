@@ -6,20 +6,27 @@
 
 class Data
 {
+public:
 	Data();
 	~Data();
+
 	void printS();
 	void printF();
+
 	void findS();
 	void findF();
+
 	void getAdvisor();
 	void getStuds();
 	void addStud();
 	void delStud();
+
 	void addFac();
 	void delFac();
+
 	void changeAdv();
 	void remAdv();
+  
 	void rollback();
 	void run(string s);
 	void save();

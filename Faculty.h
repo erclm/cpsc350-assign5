@@ -3,6 +3,7 @@
 using namespace std;
 class Faculty
 {
+public:
   int id;
 	string name;
 	string level;
@@ -19,11 +20,11 @@ class Faculty
   void addAdv(int id);
 	void delAdv(int id);
 
-	friend ostream& operator<<(ostream& os, const Student& s);
-  friend bool operator== (const Student &c1, const Student &c2);
-    friend bool operator!= (const Student &c1, const Student &c2);
-    friend bool operator< (const Student &c1, const Student &c2);
-    friend bool operator> (const Student &c1, const Student &c2);
-    friend bool operator<= (const Student &c1, const Student &c2);
-    friend bool operator>= (const Student &c1, const Student &c2);
+	friend ostream& operator<<(ostream& os, const Faculty& s);
+  friend bool operator== (const Faculty &c1, const Faculty &c2);
+    friend bool operator!= (const Faculty &c1, const Faculty &c2);
+    friend bool operator< (const Faculty &c1, const Faculty &c2);
+    friend bool operator> (const Faculty &c1, const Faculty &c2);
+    friend bool operator<= (const Faculty &c1, const Faculty &c2);
+    friend bool operator>= (const Faculty &c1, const Faculty &c2);
 };

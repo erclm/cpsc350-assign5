@@ -237,7 +237,8 @@ void Data::rollback()
 	cin.clear();
 	cin.ignore(10000, '\n');
 	getline(cin,count);
-	cout << stoi(count) << endl;
+	cout << "rollbacking "<<stoi(count) << endl;
+
 	for (int i = 0; i < (stoi(count)); ++i){
 		//cout << "pen1" << endl;
 		BST<Faculty> facCopy = facStack->pop();
@@ -356,8 +357,8 @@ void Data::save()
 {
 	//ouputs BSTs to given txt files
 	ofstream s,f;
-	s.open("studentTable.txt",std::ofstream::out);
-	f.open("facultyTable.txt",std::ofstream::out);
+	s.open("studentTable",std::ofstream::out);
+	f.open("facultyTable",std::ofstream::out);
 	masterStudent->treeToFile(s);
 	masterFaculty->treeToFile(f);
 }
@@ -392,8 +393,10 @@ void Data::run(string s)
 		remAdv();
 	else if (s =="13")
 		rollback();
-	else if (s=="14")
-		return;
+	else if (s=="14"){
+    std::cout << "exiting" << '\n';
+    return;
+  }
 	else{
 		cout << "Try Again!" << endl;
 		cout << endl;

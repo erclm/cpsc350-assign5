@@ -6,7 +6,7 @@ int main(int argc, char const *argv[])
 	//menu options
 	Data data;
 	string in = "";
-	while (in!= "0")
+	while (in!= "14")
 	{
 		cout << "1. Print all students and their information (sorted by ascending id #) "<< endl;
 		cout << "2. Print all faculty and their information (sorted by ascending id #) "<< endl;
@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
 		cout << "11. Change a student’s advisor given the student id and the new faculty id. "<< endl;
 		cout << "12. Remove an advisee from a faculty member given the ids "<< endl;
 		cout << "13. Rollback "<< endl;
-		cout << "0. Exit "<< endl;
+		cout << "14. Exit "<< endl;
 		cin >> in;
 		data.run(in);
 	}
