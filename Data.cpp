@@ -31,9 +31,9 @@ void Data::findS()
 	string uinput;
 	cout << "Enter Student ID: " <<endl;
 	cin >> uinput;
-	Student t(stoi(uinput)); // new student created anytime a new id is entered
+	Student t(stoi(uinput)); // new student
 	if (masterStudent->contains(t)){ // checks if that student's id number is in the BST
-		cout << masterStudent->search(t) <<endl; //prints all the info about the student whose id was entered
+		cout << masterStudent->search(t) <<endl; //prints all the info about the student if existing id was entered
 	}
 	else{
     cout << "Student not found." << endl;
@@ -45,9 +45,9 @@ void Data::findF()
 	string uinput;
 	cout << "Enter Faculty ID: " <<endl;
 	cin >> uinput;
-	Faculty t(stoi(uinput)); // new faculty created anytime a new id is entered
+	Faculty t(stoi(uinput)); // new faculty
 	if (masterFaculty->contains(t)){ // checks if that faculty's id number is in the BST
-		cout << masterFaculty->search(t) <<endl; //prints all the info about the faculty whose id was entered
+		cout << masterFaculty->search(t) <<endl; //prints all the info about the faculty if existing id was entered
 	}
 	else{
     cout << "Faculty not found." << endl;
@@ -59,10 +59,10 @@ void Data::getAdvisor()
 	string uinput;
 	cout << "Enter Student ID: " <<endl;
 	cin >> uinput;
-	Student t(stoi(uinput)); //created student w that id and only the id
-	if (masterStudent->contains(t)){ // makes sure that student exists in the BST
-		Student s = masterStudent->search(t); // makes a student w ALL the info connected to the id number
-		cout << masterFaculty->search(s.adv) << endl; //searches the BST for JUSt the advisor of that student
+	Student t(stoi(uinput)); //created student
+	if (masterStudent->contains(t)){ // compare if student exist
+		Student s = masterStudent->search(t); // makes a student w all the info
+		cout << masterFaculty->search(s.adv) << endl; //search faculty BST for faculty
 	}
 	else{
     cout << "Student not found." << endl;
@@ -74,13 +74,13 @@ void Data::getStuds()
 	string uinput;
 	cout << "Enter Faculty ID: " <<endl;
 	cin >> uinput;
-	Faculty t(stoi(uinput));  //created faculty w that id and only the id
-	if (masterFaculty->contains(t)){ // makes sure that faculty exists in the BST
-		Faculty f = masterFaculty->search(t); // makes a faculty w ALL the info connected to the id number
-		for (int i=0; i<f.adv->size; i++){ // goes through the list of advisees
+	Faculty t(stoi(uinput));  //same concept as above
+	if (masterFaculty->contains(t)){
+		Faculty f = masterFaculty->search(t);
+		for (int i=0; i<f.adv->size; i++){
       int x = f.adv->removeBack();
-			cout << masterStudent->search(Student(x)) <<endl; // prints the names of the advisees
-	    f.adv->insertFront(x); // then adds them back to the list
+			cout << masterStudent->search(Student(x)) <<endl;
+	    f.adv->insertFront(x);
 	   }
 	}
 	else{
@@ -90,7 +90,7 @@ void Data::getStuds()
 
 void Data::addStud()
 {
-	string name, level, major, adv, gpa; // asks the user for all the info associated w a new student
+	string name, level, major, adv, gpa;
 	cout << "Enter Name: " << endl;
 	cin >> name;
 	cin.clear();
@@ -104,12 +104,13 @@ void Data::addStud()
 	cin >> adv;
 	cin.clear();
 	cout << adv;
+  cout << "Enter GPA: " << endl;
+  cin >> gpa;
+  cin.clear();
 	if (masterFaculty->contains(stoi(adv))){ // if the advisor id that the user gave exists, continue
-		cout << "Enter GPA: " << endl; //checks gpa last for no particular reason lol
-		cin >> gpa;
-		Student s = Student(name, level, major, stoi(adv), stod(gpa)); // taking all the user info and making a new student
-		masterStudent->insert(s); //insert this new student into teh BST
-		masterFaculty->search(stoi(adv)).addAdv(s.id); //adds this new student to its advisors list in the faculty BST
+		Student s = Student(name, level, major, stoi(adv), stod(gpa));
+		masterStudent->insert(s);
+		masterFaculty->search(stoi(adv)).addAdv(s.id);
 		studStack->push(*masterStudent);
 		facStack->push(*masterFaculty);
 	}
@@ -122,13 +123,13 @@ void Data::delStud()
 {
 	string uinput;
 	int adv;
-	cout << "Enter Student ID: " <<endl; // gets the student's id that we are deleting
+	cout << "Enter Student ID: " <<endl;
 	cin >> uinput;
-	Student t(stoi(uinput)); // makes new student w the id info
-	if (masterStudent->contains(t)){ // checks if this students id exists in the BST
-		adv = masterStudent->search(t).adv; // searches the advisor of this student throught their id
-		masterStudent->deleteRec(t); //deletes this student in the BST
-		masterFaculty->search(adv).delAdv(stoi(uinput)); // deletes this student from their advisor's list of advisees
+	Student t(stoi(uinput));
+	if (masterStudent->contains(t)){
+		adv = masterStudent->search(t).adv;
+		masterStudent->deleteRec(t);
+		masterFaculty->search(adv).delAdv(stoi(uinput));
 		studStack->push(*masterStudent);
 		facStack->push(*masterFaculty);
 	}
@@ -139,7 +140,7 @@ void Data::delStud()
 
 void Data::addFac()
 {
-	string name, level, dept; // gets the info that a faculty objects needs from the user
+	string name, level, dept;
 	cout << "Enter Name: " << endl;
 	cin >> name;
 	cout << "Enter Level: " << endl;
@@ -147,7 +148,7 @@ void Data::addFac()
 	cout << "Enter Department: " << endl;
 	cin >> dept;
 	Faculty f = Faculty(name, level, dept);
-	masterFaculty->insert(f); //adds this new faculty into the BST
+	masterFaculty->insert(f);
 	studStack->push(*masterStudent);
 	facStack->push(*masterFaculty);
 }
@@ -157,16 +158,20 @@ void Data::delFac()
 	string uinput,uinput2;
 	int adv;
 	cout << "Enter Faculty ID: " <<endl;
-	cin >> uinput; // get id of faculty we are deleting
-
+	cin >> uinput; //get id of faculty we are deleting
 	cout << "Enter Faculty ID to transfer students: " <<endl;
-	cin >> uinput2; // transfers all of these faculty's advisees to a new faculty (bc we are about to get rid of their advisor lol)
+	cin >> uinput2;
 
-	Faculty t(stoi(uinput)); // creates new faculty just containing the id
+  //transfers all of these faculty's advisees to a new faculty (bc we are about to get rid of their advisor lol)
+	Faculty t(stoi(uinput));
+
+  //creates new faculty just containing the id
 	Faculty tr(stoi(uinput2));
-	if (masterFaculty->contains(tr) && masterFaculty->contains(t)){ // if these exist in the faculty BST
+	if (masterFaculty->contains(tr) && masterFaculty->contains(t)){
+    //if these exist in the faculty BST
 		NaiveList<int>* old = masterFaculty->search(t).adv; // there's a list of the advisees of the faculty
-		while(old->getSize()!=0){ // but we need a new list bc we are changing their faculty person (this defines the old one)
+    // but we need a new list bc we are changing their faculty person (this defines the old one)
+		while(old->getSize()!=0){
 			int id = old->removeFront(); //finds the old id
 			Student s = Student(id);
 			masterStudent->search(s).setAdv(stoi(uinput2)); //changes each of the student's advisor to the new faculty id
